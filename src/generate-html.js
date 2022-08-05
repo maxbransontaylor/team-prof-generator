@@ -1,19 +1,21 @@
+const uniqueGetter = function (employee) {
+  const role = employee.getRole();
+  switch (role) {
+    case "Manager":
+      return `Office number: ${employee.officeNumber}`;
+    case "Engineer":
+      return `GitHub: <a href='https://github.com/${employee.github}' target='_blank'>${employee.github}</a>`;
+    case "Intern":
+      return `School: ${employee.school}`;
+  }
+};
+
 function generateCards(data) {
   return data
     .map((employee) => {
       const { name, id, email } = employee;
       const role = employee.getRole();
-      const uniqueGetter = function (role) {
-        switch (role) {
-          case "Manager":
-            return `Office number: ${employee.officeNumber}`;
-          case "Engineer":
-            return `GitHub: <a href='https://github.com/${employee.github}' target='_blank'>${employee.github}</a>`;
-          case "Intern":
-            return `School: ${employee.school}`;
-        }
-      };
-      const unique = uniqueGetter(role);
+      const unique = uniqueGetter(employee);
       return `
       <div class="card m-3" style="width: 15rem">
         <div class="card-header text-bg-primary">

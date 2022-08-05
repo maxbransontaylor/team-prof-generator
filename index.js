@@ -86,4 +86,13 @@ function promptEmployees(employeeList) {
 promptManager()
   .then((results) => promptEmployees(results))
   .then((data) => generatePage(data))
-  .then((html) => console.log(html));
+  .then((html) =>
+    fs.writeFile("./dist/index.html", html, (err) => {
+      if (err) {
+        throw err;
+      }
+      console.log(
+        "file written! check the 'dist' folder for your 'index.html' file."
+      );
+    })
+  );
