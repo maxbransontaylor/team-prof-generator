@@ -4,25 +4,58 @@ const Intern = require("./lib/Intern");
 const generatePage = require("./src/generate-html");
 const inquirer = require("inquirer");
 const fs = require("fs");
+const { validate } = require("@babel/types");
 
 function promptManager() {
   return inquirer
     .prompt([
-      { type: "input", name: "name", message: "What is your manager's name?" },
+      {
+        type: "input",
+        name: "name",
+        message: "What is your manager's name?",
+        validate: function (input) {
+          if (input) {
+            return true;
+          }
+          console.log("Please enter something!");
+          return false;
+        },
+      },
       {
         type: "input",
         name: "id",
         message: "What is your manager's employee id?",
+        validate: function (input) {
+          if (input) {
+            return true;
+          }
+          console.log("Please enter something!");
+          return false;
+        },
       },
       {
         type: "input",
         name: "email",
         message: "What is your manager's email?",
+        validate: function (input) {
+          if (input.includes("@")) {
+            return true;
+          }
+          console.log("Please enter a valid email!");
+          return false;
+        },
       },
       {
         type: "input",
         name: "office",
         message: "what is your manager's office number?",
+        validate: function (input) {
+          if (input) {
+            return true;
+          }
+          console.log("Please enter something!");
+          return false;
+        },
       },
     ])
     .then((answers) => {
@@ -37,18 +70,32 @@ function promptEmployees(employeeList) {
         type: "list",
         name: "role",
         message: "What role is this employee?",
-        choices: ["Intern", "Engineer"],
+        choices: ["Engineer", "Intern"],
       },
       { type: "input", name: "name", message: "What is your employee's name?" },
       {
         type: "input",
         name: "id",
         message: "What is your employee's id?",
+        validate: function (input) {
+          if (input) {
+            return true;
+          }
+          console.log("Please enter something!");
+          return false;
+        },
       },
       {
         type: "input",
         name: "email",
         message: "What is your employee's email?",
+        validate: function (input) {
+          if (input.includes("@")) {
+            return true;
+          }
+          console.log("Please enter a valid email!");
+          return false;
+        },
       },
       {
         type: "input",
@@ -57,6 +104,13 @@ function promptEmployees(employeeList) {
         when: function (answers) {
           return answers.role === "Engineer";
         },
+        validate: function (input) {
+          if (input) {
+            return true;
+          }
+          console.log("Please enter something!");
+          return false;
+        },
       },
       {
         type: "input",
@@ -64,6 +118,13 @@ function promptEmployees(employeeList) {
         message: "What is your intern's current school?",
         when: function (answers) {
           return answers.role === "Intern";
+        },
+        validate: function (input) {
+          if (input) {
+            return true;
+          }
+          console.log("Please enter something!");
+          return false;
         },
       },
       {
