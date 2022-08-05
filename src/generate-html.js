@@ -1,3 +1,4 @@
+//gets the third "unique" attribute for each employee type (office#,school,github)
 const uniqueGetter = function (employee) {
   const role = employee.getRole();
   switch (role) {
@@ -9,12 +10,14 @@ const uniqueGetter = function (employee) {
       return `School: ${employee.school}`;
   }
 };
-
+//creates the employee cards
 function generateCards(data) {
+  //map+join to return a block of html for however many employees we have
   return data
     .map((employee) => {
       const { name, id, email } = employee;
       const role = employee.getRole();
+      //get unique attribute html
       const unique = uniqueGetter(employee);
       return `
       <div class="card m-3" style="width: 15rem">
@@ -37,6 +40,7 @@ function generateCards(data) {
 
 module.exports = (employeeData) => {
   const cards = generateCards(employeeData);
+  //this is essentially a template function, all the processing happens in generateCards()
   return `
  <!DOCTYPE html>
 <html lang="en">
