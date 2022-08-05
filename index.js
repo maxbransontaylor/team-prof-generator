@@ -85,4 +85,5 @@ function promptEmployees(employeeList) {
 }
 promptManager()
   .then((results) => promptEmployees(results))
-  .then((data) => generatePage(data));
+  .then((data) => generatePage(data))
+  .then((html) => console.log(html));
