@@ -3,6 +3,7 @@ const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
 const generatePage = require("./src/generate-html");
 const inquirer = require("inquirer");
+const fs = require("fs");
 
 function promptManager() {
   return inquirer
@@ -84,4 +85,4 @@ function promptEmployees(employeeList) {
 }
 promptManager()
   .then((results) => promptEmployees(results))
-  .then((list) => console.log(list));
+  .then((data) => generatePage(data));
